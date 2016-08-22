@@ -32,7 +32,6 @@ class App extends Component {
 		msgRef.on('value', function(snapshot) {
 			const messageKeys = Object.keys(snapshot.val());
 			const messageStrings = messageKeys.map(key => snapshot.val()[key].message);
-			console.log(messageStrings);
 
 			thisRef.setState({
 				messages: messageStrings
