@@ -11,6 +11,8 @@ class App extends Component {
         };
 
         this.pushToFirebase = this.pushToFirebase.bind(this);
+        this.delay = 1000 * 60 * 30;
+        setTimeout(() => location.reload(), this.delay);
     }
 
     pushToFirebase(e) {
