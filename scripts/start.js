@@ -165,18 +165,6 @@ function runDevServer(port) {
 function run(port) {
   setupCompiler(port);
   runDevServer(port);
-
-  const firebase = require('firebase');
-  var config = {
-    apiKey: "AIzaSyBeXvLz0iuYBk2Nm3pgV2XzADh6w6ioUlE",
-    authDomain: "livingroom-tablet.firebaseapp.com",
-    databaseURL: "https://livingroom-tablet.firebaseio.com",
-    storageBucket: "livingroom-tablet.appspot.com",
-  };
-  firebase.initializeApp(config);
-
-  firebase.database().ref('message').push({message: "Hai" + Math.random()});
-  console.log("Sent!");
 }
 
 detect(DEFAULT_PORT).then(port => {
