@@ -11,6 +11,8 @@ html, body {
     height: 100%;
     overflow-y: scroll;
     position: absolute;
+
+    font-size: 12px;
 }
 
 #baseinput {
@@ -20,6 +22,7 @@ html, body {
     border-top: 1px solid gray;
     font-size: 14px;
     height: 30px;
+    padding: 0 10px;
 }
 
 .message {
