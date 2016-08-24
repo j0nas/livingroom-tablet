@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import firebase from 'firebase';
+import React, {Component} from "react";
+import firebase from "firebase";
+import Calendar from "./Calendar";
 import "./style.css";
 
 class App extends Component {
@@ -46,7 +47,6 @@ class App extends Component {
             }, () => {
                 const messagesDiv = document.getElementById("messagesDiv");
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                console.log("received message");
             });
         });
     }
@@ -54,10 +54,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <iframe id="calendar"
-                    src="https://calendar.google.com/calendar/embed?mode=WEEK&amp;height=600&amp;wkst=2&amp;bgcolor=%23ffffff&amp;src=supershadypeople%40gmail.com&amp;color=%231B887A&amp;ctz=Europe%2FOslo"
-                    frameborder="0" scrolling="no"></iframe>
-
+                <Calendar/>
                 <div id="messagesDiv">
                     <div id="messages">
                         {this.state.messages.map(msg => <div className="message" key={msg + Math.random()}>{msg}</div>)}

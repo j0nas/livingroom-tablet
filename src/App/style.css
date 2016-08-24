@@ -33,9 +33,3 @@
     bottom: 0;
 }
 
-#calendar {
-    position: absolute;
-    width: 80%;
-    height: 100%;
-    box-sizing: border-box;
-}
