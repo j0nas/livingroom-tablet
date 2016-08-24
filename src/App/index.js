@@ -1,18 +1,26 @@
 import React, {Component} from 'react';
-
 import firebase from 'firebase';
+import "./style.css";
 
 class App extends Component {
     constructor() {
         super();
         this.state = {
             messages: []
-        }
+        };
+
+        this.pushToFirebase = this.pushToFirebase.bind(this);
     }
 
-    pushToFirebase() {
+    pushToFirebase(e) {
+        const KEY_ENTER = 13;
+        if (e.keyCode !== KEY_ENTER) {
+            return;
+        }
+
         const baseInput = document.getElementById('baseinput');
         firebase.database().ref('message').push({message: baseInput.value});
+
         baseInput.value = "";
     }
 
@@ -35,6 +43,10 @@ class App extends Component {
 
             thisRef.setState({
                 messages: messageStrings
+            }, () => {
+                const messagesDiv = document.getElementById("messagesDiv");
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                console.log("received message");
             });
         });
     }
@@ -43,11 +55,14 @@ class App extends Component {
         return (
             <div className="App">
                 <div id="messagesDiv">
-                    {this.state.messages.map(msg => <div key={msg + Math.random()}>{msg}</div>)}
+                    <div id="messages">
+                        {this.state.messages.map(msg => <div className="message" key={msg + Math.random()}>{msg}</div>)}
+                    </div>
+                    <div className="controls">
+                        <input onKeyDown={this.pushToFirebase} type="text" id="baseinput"
+                               placeholder="Type a message..."/>
+                    </div>
                 </div>
-                <input type="text" id="baseinput"/>
-
-                <button onClick={this.pushToFirebase}>PUSH</button>
             </div>
         );
     }
