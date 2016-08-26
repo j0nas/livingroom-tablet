@@ -14,9 +14,12 @@
     width: 100%;
     border: 0;
     border-top: 1px solid gray;
-    font-size: 14px;
-    height: 30px;
+    font-size: 1.25rem;
+    height: 55px;
     padding: 0 10px;
+
+    color: white;
+    background: black;
 }
 
 .message {
