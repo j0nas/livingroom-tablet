@@ -9,3 +9,13 @@
     z-index: 1;
     position: relative;
 }
+
+#calendar {
+    text-align: center;
+    display: table;
+}
+
+#calendarContain {
+    display: table-cell;
+    vertical-align: middle;
+}

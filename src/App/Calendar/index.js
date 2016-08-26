@@ -82,12 +82,14 @@ class Calendar extends Component {
                     <button id="authorize-button" onClick={this.handleAuthClick}>Authorize</button>
                 </div>
                 <span id="calendar">
+                    <div id="calendarContain">
                     {this.state.events.map((event, i) => {
                         const date = new Date(event.start.dateTime || event.start.date);
                         const time = date.getHours() ? ' ' + date.getHours() + ':' + date.getMinutes() : '';
                         const dateString = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() + time;
                         return <div key={i}>{dateString + ' - ' + event.summary}</div>;
                     })}
+                    </div>
                 </span>
             </div>
         );
