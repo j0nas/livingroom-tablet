@@ -26,9 +26,9 @@ class Calendar extends Component {
         this.SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
     }
 
-    componentDidUpdate() {
+    componentDidMount() {
         if (!this.state.authorized) {
-            this.checkAuth(true);
+            gapi.load("auth", () => gapi.auth.init(() => this.checkAuth(true)));
         }
     }
 
@@ -42,7 +42,9 @@ class Calendar extends Component {
 
     handleAuthResult(authResult) {
         if (authResult && !authResult.error) {
-            this.setState({authorized: true}, () => gapi.client.load('calendar', 'v3', this.listUpcomingEvents));
+            this.setState({authorized: true}, () =>
+                gapi.load("client", () =>
+                    gapi.client.load('calendar', 'v3', this.listUpcomingEvents)));
         }
     }
 
