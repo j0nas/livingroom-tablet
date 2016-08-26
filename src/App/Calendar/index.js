@@ -1,33 +1,98 @@
 import React, {Component} from "react";
+import "./google-api-client";
 import "./style.css";
 
+/* global gapi */
 class Calendar extends Component {
+
     constructor() {
         super();
+        this.state = {
+            authorized: false,
+            events: []
+        };
 
         this.refresh = this.refresh.bind(this);
-        this.refreshComponentEvery = 1000 * 60 * 30;
-        setTimeout(this.refresh, this.refreshComponentEvery);
+        this.REFRESH_EVERY = 1000 * 60 * 30;
+        setTimeout(this.refresh, this.REFRESH_EVERY);
+
+        this.listUpcomingEvents = this.listUpcomingEvents.bind(this);
+        this.handleAuthClick = this.handleAuthClick.bind(this);
+        this.handleAuthResult = this.handleAuthResult.bind(this);
+        this.checkAuth = this.checkAuth.bind(this);
+
+        this.CLIENT_ID = '110694361053-v51kj7qvl1ena7smbngnocskpms10edo.apps.googleusercontent.com';
+        this.SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+    }
+
+    componentDidUpdate() {
+        if (!this.state.authorized) {
+            this.setState({authorized: true});
+            this.checkAuth(true);
+        }
+    }
+
+    checkAuth(immediate) {
+        gapi.auth.authorize({
+            'client_id': this.CLIENT_ID,
+            'scope': this.SCOPES.join(' '),
+            'immediate': immediate
+        }, this.handleAuthResult);
+    }
+
+    handleAuthResult(authResult) {
+        const authorizeDiv = document.getElementById('authorize-div');
+        if (authResult && !authResult.error) {
+            authorizeDiv.style.display = 'none';
+            gapi.client.load('calendar', 'v3', this.listUpcomingEvents);
+        } else {
+            authorizeDiv.style.display = 'inline';
+        }
+    }
+
+    handleAuthClick() {
+        this.checkAuth(false);
+        return false;
+    }
+
+    listUpcomingEvents() {
+        var request = gapi.client.calendar.events.list({
+            'calendarId': 'primary',
+            'timeMin': (new Date()).toISOString(),
+            'singleEvents': true,
+            'orderBy': 'startTime'
+        });
+
+        request.execute(resp => this.setState({events: resp.items}));
     }
 
     refresh() {
-        const calendarDiv = document.getElementById('calendarContainer');
-        const iframe = calendarDiv.childNodes[0];
+        const calendarContainer = document.getElementById('calendarContainer');
+        const calendar = calendarContainer.childNodes[1];
 
-        calendarDiv.removeChild(iframe);
+        calendarContainer.removeChild(calendar);
         this.forceUpdate();
-        calendarDiv.appendChild(iframe);
+        calendarContainer.appendChild(calendar);
         this.forceUpdate();
-        setTimeout(this.refresh, this.refreshComponentEvery);
+        setTimeout(this.refresh, this.REFRESH_EVERY);
     }
 
-
     render() {
+        // TODO refactor into data fetching component and rendering component
         return (
             <div id="calendarContainer">
-                <iframe id="calendar"
-                        src="https://calendar.google.com/calendar/embed?mode=WEEK&amp;height=600&amp;wkst=2&amp;bgcolor=%23ffffff&amp;src=supershadypeople%40gmail.com&amp;color=%231B887A&amp;ctz=Europe%2FOslo"
-                        frameBorder="0" scrolling="no"/>
+                <div id="authorize-div">
+                    <span>Authorize access to Google Calendar API </span>
+                    <button id="authorize-button" onClick={this.handleAuthClick}>Authorize</button>
+                </div>
+                <span id="calendar">
+                    {this.state.events.map((event, i) => {
+                        const date = new Date(event.start.dateTime || event.start.date);
+                        const time = date.getHours() ? ' ' + date.getHours() + ':' + date.getMinutes() : '';
+                        const dateString = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() + time;
+                        return <div key={i}>{dateString + ' - ' + event.summary}</div>;
+                    })}
+                </span>
             </div>
         );
     }
