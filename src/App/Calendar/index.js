@@ -28,7 +28,6 @@ class Calendar extends Component {
 
     componentDidUpdate() {
         if (!this.state.authorized) {
-            this.setState({authorized: true});
             this.checkAuth(true);
         }
     }
@@ -43,7 +42,7 @@ class Calendar extends Component {
 
     handleAuthResult(authResult) {
         if (authResult && !authResult.error) {
-            gapi.client.load('calendar', 'v3', this.listUpcomingEvents);
+            this.setState({authorized: true}, () => gapi.client.load('calendar', 'v3', this.listUpcomingEvents));
         }
     }
 
