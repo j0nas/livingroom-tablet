@@ -20,6 +20,7 @@ class Calendar extends Component {
         this.handleAuthClick = this.handleAuthClick.bind(this);
         this.handleAuthResult = this.handleAuthResult.bind(this);
         this.checkAuth = this.checkAuth.bind(this);
+        this.prefixWithZeroIfSingleDigit = this.prefixWithZeroIfSingleDigit.bind(this);
 
         this.CLIENT_ID = '110694361053-v51kj7qvl1ena7smbngnocskpms10edo.apps.googleusercontent.com';
         this.SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
@@ -73,6 +74,10 @@ class Calendar extends Component {
         setTimeout(this.refresh, this.REFRESH_EVERY);
     }
 
+    prefixWithZeroIfSingleDigit(value) {
+        return (String(value).length <= 1 ? '0' : '') + value;
+    }
+
     render() {
         // TODO refactor into data fetching component and rendering component
         return (
@@ -85,8 +90,8 @@ class Calendar extends Component {
                     <div id="calendarContain">
                     {this.state.events.map((event, i) => {
                         const date = new Date(event.start.dateTime || event.start.date);
-                        const time = date.getHours() ? ' ' + date.getHours() + ':' + date.getMinutes() : '';
-                        const dateString = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() + time;
+                        const time = date.getHours() ? ' ' + this.prefixWithZeroIfSingleDigit(date.getHours()) + ':' + this.prefixWithZeroIfSingleDigit(date.getMinutes()) : '';
+                        const dateString = this.prefixWithZeroIfSingleDigit(date.getDate()) + '.' + this.prefixWithZeroIfSingleDigit(date.getMonth() + 1) + time;
                         return <div key={i}>{dateString + ' - ' + event.summary}</div>;
                     })}
                     </div>
