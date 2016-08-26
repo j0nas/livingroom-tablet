@@ -41,12 +41,8 @@ class Calendar extends Component {
     }
 
     handleAuthResult(authResult) {
-        const authorizeDiv = document.getElementById('authorize-div');
         if (authResult && !authResult.error) {
-            authorizeDiv.style.display = 'none';
             gapi.client.load('calendar', 'v3', this.listUpcomingEvents);
-        } else {
-            authorizeDiv.style.display = 'inline';
         }
     }
 
@@ -81,7 +77,7 @@ class Calendar extends Component {
         // TODO refactor into data fetching component and rendering component
         return (
             <div id="calendarContainer">
-                <div id="authorize-div">
+                <div id="authorize-div" style={{display: this.state.authorized ? "none" : "block"}}>
                     <span>Authorize access to Google Calendar API </span>
                     <button id="authorize-button" onClick={this.handleAuthClick}>Authorize</button>
                 </div>
