@@ -51,6 +51,7 @@ class App extends Component {
     }
 
     render() {
+        // TODO extract shoutbox to separate component
         return (
             <div className="App">
                 <Calendar/>

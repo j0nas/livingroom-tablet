@@ -3,6 +3,7 @@
     width: 80%;
     height: 100%;
     box-sizing: border-box;
+    font-size: 3rem;
 }
 
 #authorize-button {
@@ -18,4 +19,5 @@
 #calendarContain {
     display: table-cell;
     vertical-align: middle;
+    text-transform: capitalize;
 }
