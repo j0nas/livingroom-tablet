@@ -13,25 +13,21 @@ class Shoutbox extends Component {
     }
 
     componentDidMount() {
-        const firebase = require('firebase');
-        const config = {
+        firebase.initializeApp({
             apiKey: "AIzaSyBeXvLz0iuYBk2Nm3pgV2XzADh6w6ioUlE",
             authDomain: "livingroom-tablet.firebaseapp.com",
             databaseURL: "https://livingroom-tablet.firebaseio.com",
             storageBucket: "livingroom-tablet.appspot.com",
-        };
-        firebase.initializeApp(config);
+        });
 
         const msgRef = firebase.database().ref('message');
-        const thisRef = this;
+        //const thisRef = this;
 
-        msgRef.on('value', function (snapshot) {
+        msgRef.on('value', snapshot => {
             const messageKeys = Object.keys(snapshot.val());
             const messageStrings = messageKeys.map(key => snapshot.val()[key].message);
 
-            thisRef.setState({
-                messages: messageStrings
-            }, () => {
+            this.setState({messages: messageStrings}, () => {
                 const messagesDiv = document.getElementById("messagesDiv");
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
             });
