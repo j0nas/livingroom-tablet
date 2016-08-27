@@ -2,8 +2,7 @@
   "name": "livingroom-tablet",
   "version": "0.0.1",
   "private": true,
-  "devDependencies": {
-    "firebase": "^3.3.0",
+  "dependencies": {
     "autoprefixer": "6.4.0",
     "babel-core": "6.13.2",
     "babel-eslint": "6.1.2",
@@ -42,9 +41,7 @@
     "url-loader": "0.5.7",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.15.0",
-    "whatwg-fetch": "1.0.0"
-  },
-  "dependencies": {
+    "whatwg-fetch": "1.0.0",
     "firebase": "^3.3.0",
     "pushstate-server": "^1.10.0",
     "react": "^15.2.1",
