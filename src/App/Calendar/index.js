@@ -15,14 +15,15 @@ class Calendar extends Component {
         };
 
         this.refresh = this.refresh.bind(this);
-        this.REFRESH_EVERY = 1000 * 60 * 30;
+        this.REFRESH_EVERY = 1000 * 60;
         setTimeout(this.refresh, this.REFRESH_EVERY);
 
-        this.listUpcomingEvents = this.listUpcomingEvents.bind(this);
+        this.fetchUpcomingEvents = this.fetchUpcomingEvents.bind(this);
         this.handleAuthClick = this.handleAuthClick.bind(this);
         this.handleAuthResult = this.handleAuthResult.bind(this);
         this.checkAuth = this.checkAuth.bind(this);
 
+        this.CALENDAR_CONTAINER_ID = "calendarContainer";
         this.CLIENT_ID = '110694361053-v51kj7qvl1ena7smbngnocskpms10edo.apps.googleusercontent.com';
         this.SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
     }
@@ -45,7 +46,7 @@ class Calendar extends Component {
         if (authResult && !authResult.error) {
             this.setState({authorized: true}, () =>
                 gapi.load("client", () =>
-                    gapi.client.load('calendar', 'v3', this.listUpcomingEvents)));
+                    gapi.client.load('calendar', 'v3', this.fetchUpcomingEvents)));
         }
     }
 
@@ -54,7 +55,7 @@ class Calendar extends Component {
         return false;
     }
 
-    listUpcomingEvents() {
+    fetchUpcomingEvents() {
         const request = gapi.client.calendar.events.list({
             'calendarId': 'primary',
             'timeMin': (new Date()).toISOString(),
@@ -66,19 +67,13 @@ class Calendar extends Component {
     }
 
     refresh() {
-        const calendarContainer = document.getElementById('calendarContainer');
-        const calendar = calendarContainer.childNodes[1];
-
-        calendarContainer.removeChild(calendar);
-        this.forceUpdate();
-        calendarContainer.appendChild(calendar);
-        this.forceUpdate();
+        this.fetchUpcomingEvents();
         setTimeout(this.refresh, this.REFRESH_EVERY);
     }
 
     render() {
         return (
-            <div id="calendarContainer">
+            <div id={this.CALENDAR_CONTAINER_ID}>
                 <div id="authorize-div" style={{display: this.state.authorized ? "none" : "block"}}>
                     <span>Authorize access to Google Calendar API </span>
                     <button id="authorize-button" onClick={this.handleAuthClick}>Authorize</button>
