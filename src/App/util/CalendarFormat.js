@@ -1,0 +1,1 @@
+export const prefixWithZeroIfSingleDigit = value => (String(value).length <= 1 ? '0' : '') + value;

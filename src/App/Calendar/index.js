@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import CalendarView from "./CalendarView";
+
 import "./google-api-client";
 import "./style.css";
 
@@ -20,7 +22,6 @@ class Calendar extends Component {
         this.handleAuthClick = this.handleAuthClick.bind(this);
         this.handleAuthResult = this.handleAuthResult.bind(this);
         this.checkAuth = this.checkAuth.bind(this);
-        this.prefixWithZeroIfSingleDigit = this.prefixWithZeroIfSingleDigit.bind(this);
 
         this.CLIENT_ID = '110694361053-v51kj7qvl1ena7smbngnocskpms10edo.apps.googleusercontent.com';
         this.SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
@@ -54,7 +55,7 @@ class Calendar extends Component {
     }
 
     listUpcomingEvents() {
-        var request = gapi.client.calendar.events.list({
+        const request = gapi.client.calendar.events.list({
             'calendarId': 'primary',
             'timeMin': (new Date()).toISOString(),
             'singleEvents': true,
@@ -75,28 +76,14 @@ class Calendar extends Component {
         setTimeout(this.refresh, this.REFRESH_EVERY);
     }
 
-    prefixWithZeroIfSingleDigit(value) {
-        return (String(value).length <= 1 ? '0' : '') + value;
-    }
-
     render() {
-        // TODO refactor into data fetching component and rendering component
         return (
             <div id="calendarContainer">
                 <div id="authorize-div" style={{display: this.state.authorized ? "none" : "block"}}>
                     <span>Authorize access to Google Calendar API </span>
                     <button id="authorize-button" onClick={this.handleAuthClick}>Authorize</button>
                 </div>
-                <span id="calendar">
-                    <div id="calendarContain">
-                    {this.state.events.map((event, i) => {
-                        const date = new Date(event.start.dateTime || event.start.date);
-                        const time = date.getHours() ? ' ' + this.prefixWithZeroIfSingleDigit(date.getHours()) + ':' + this.prefixWithZeroIfSingleDigit(date.getMinutes()) : '';
-                        const dateString = this.prefixWithZeroIfSingleDigit(date.getDate()) + '.' + this.prefixWithZeroIfSingleDigit(date.getMonth() + 1) + time;
-                        return <div key={i}>{dateString + ' - ' + event.summary}</div>;
-                    })}
-                    </div>
-                </span>
+                <CalendarView events={this.state.events} />
             </div>
         );
     }

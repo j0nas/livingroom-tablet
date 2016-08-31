@@ -1,4 +1,4 @@
-#calendar, #authorize-div {
+#authorize-div {
     position: absolute;
     width: 80%;
     height: 100%;
@@ -9,15 +9,4 @@
 #authorize-button {
     z-index: 1;
     position: relative;
-}
-
-#calendar {
-    text-align: center;
-    display: table;
-}
-
-#calendarContain {
-    display: table-cell;
-    vertical-align: middle;
-    text-transform: capitalize;
 }
