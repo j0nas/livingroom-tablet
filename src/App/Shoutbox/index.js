@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import firebase from "firebase";
+import MessagesList from "./MessageList";
 import "./style.css";
 
 class Shoutbox extends Component {
@@ -21,8 +22,6 @@ class Shoutbox extends Component {
         });
 
         const msgRef = firebase.database().ref('message');
-        //const thisRef = this;
-
         msgRef.on('value', snapshot => {
             const messageKeys = Object.keys(snapshot.val());
             const messageStrings = messageKeys.map(key => snapshot.val()[key].message);
@@ -49,9 +48,7 @@ class Shoutbox extends Component {
     render() {
         return (
             <div id="messagesDiv">
-                <div id="messages">
-                    {this.state.messages.map(msg => <div className="message" key={msg + Math.random()}>{msg}</div>)}
-                </div>
+                <MessagesList messages={this.state.messages} />
                 <div className="controls">
                     <input onKeyDown={this.pushToFirebase} type="text" id="baseinput"
                            placeholder="Type a message..."/>

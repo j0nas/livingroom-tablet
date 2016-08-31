@@ -1,0 +1,8 @@
+.message {
+    padding: 2px 5px;
+    word-wrap: break-word;
+}
+
+#messages :nth-child(odd) {
+    background: #222;
+}
