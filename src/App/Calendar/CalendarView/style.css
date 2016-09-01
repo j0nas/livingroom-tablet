@@ -1,12 +1,7 @@
 #calendar {
-    position: absolute;
-    width: 80%;
     height: 100%;
-    box-sizing: border-box;
+    width: 100%;
     font-size: 4vw;
-}
-
-#calendar {
     text-align: center;
     display: table;
 }

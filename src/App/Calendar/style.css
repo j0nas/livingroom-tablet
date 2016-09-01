@@ -1,3 +1,10 @@
+#calendarContainer {
+    position: absolute;
+    width: 80%;
+    height: 50%;
+    box-sizing: border-box;
+}
+
 #authorize-div {
     position: absolute;
     width: 80%;
