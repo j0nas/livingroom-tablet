@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-
+import fetchJsonp from "fetch-jsonp";
 import "./style.css";
 
 class XkcdComponent extends Component {
@@ -11,18 +11,15 @@ class XkcdComponent extends Component {
     }
 
     componentDidMount() {
-        const $ = require('jquery');
-        $.ajax({
-            url: "https://dynamic.xkcd.com/api-0/jsonp/comic?callback=?",
-            dataType: "json",
-            jsonpCallback: "xkcddata",
-            success: data =>
+        fetchJsonp("https://dynamic.xkcd.com/api-0/jsonp/comic")
+            .then(res => res.json())
+            .then(data =>
                 this.setState({
-                    imgUrl: data.img,
+                    imgUrl: data.img.replace('http:', 'https:'),
                     imgTitle: data.alt,
                     imgAlt: data.title
                 })
-        });
+            );
     }
 
     render() {
