@@ -19,3 +19,7 @@
     width: 55%;
     text-align: left;
 }
+
+.calendarEventToday {
+    color: lightcoral;
+}

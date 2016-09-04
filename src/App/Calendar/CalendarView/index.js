@@ -8,10 +8,14 @@ const CalendarView = ({events}) => (
         <tbody id="calendarContain">
         {events.map(event => {
             const date = new Date(event.start.dateTime || event.start.date);
-            const time = date.getHours() ? ' ' + fixPrefix(date.getHours()) + ':' + fixPrefix(date.getMinutes()) : '';
-            const dateString = fixPrefix(date.getDate()) + '.' + fixPrefix(date.getMonth() + 1) + time;
+            const isItToday = new Date().toDateString() === date.toDateString();
+
+            const time = event.start.dateTime ? ' ' + fixPrefix(date.getHours()) + ':' + fixPrefix(date.getMinutes()) : '';
+            const dateString = (isItToday ? "Today" :
+                fixPrefix(date.getDate()) + '.' + fixPrefix(date.getMonth() + 1)) + time;
+
             return (
-                <tr key={shortid.generate()}>
+                <tr key={shortid.generate()} className={isItToday ? "calendarEventToday" : ""}>
                     <td className="calendarDate">{dateString}</td>
                     <td className="calendarSummary">{event.summary}</td>
                 </tr>
