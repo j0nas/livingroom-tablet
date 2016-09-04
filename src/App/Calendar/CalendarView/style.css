@@ -2,12 +2,20 @@
     height: 100%;
     width: 100%;
     font-size: 4vw;
-    text-align: center;
-    display: table;
 }
 
 #calendarContain {
     display: table-cell;
     vertical-align: middle;
     text-transform: capitalize;
+}
+
+/*  Width is relative to 100% body width, not 80%, shoutbox is pos:abs */
+.calendarDate {
+    width: 30%;
+}
+
+.calendarSummary {
+    width: 50%;
+    text-align: left;
 }
