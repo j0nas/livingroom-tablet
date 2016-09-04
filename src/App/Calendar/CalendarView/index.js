@@ -11,8 +11,7 @@ const CalendarView = ({events}) => (
             const isItToday = new Date().toDateString() === date.toDateString();
 
             const time = event.start.dateTime ? ' ' + fixPrefix(date.getHours()) + ':' + fixPrefix(date.getMinutes()) : '';
-            const dateString = (isItToday ? "Today" :
-                fixPrefix(date.getDate()) + '.' + fixPrefix(date.getMonth() + 1)) + time;
+            const dateString = (isItToday ? "Today" : fixPrefix(date.getDate()) + '.' + fixPrefix(date.getMonth() + 1)) + time;
 
             return (
                 <tr key={shortid.generate()} className={isItToday ? "calendarEventToday" : ""}>
