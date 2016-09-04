@@ -2,6 +2,8 @@
     height: 100%;
     width: 100%;
     font-size: 3.5vw;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 #calendarContain {
@@ -12,11 +14,11 @@
 
 /*  Width is relative to 100% body width, not 80%, shoutbox is pos:abs */
 .calendarDate, .calendarTime {
-    width: 15%;
+    width: 20%;
 }
 
 .calendarSummary {
-    width: 50%;
+    width: 40%;
     text-align: left;
 }
 
