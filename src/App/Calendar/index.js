@@ -1,12 +1,10 @@
 import React, {Component} from "react";
 import CalendarView from "./CalendarView";
-
 import "./google-api-client";
 import "./style.css";
 
 /* global gapi */
 class Calendar extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -78,7 +76,7 @@ class Calendar extends Component {
                     <span>Authorize access to Google Calendar API </span>
                     <button id="authorize-button" onClick={this.handleAuthClick}>Authorize</button>
                 </div>
-                <CalendarView events={this.state.events} />
+                <CalendarView events={this.state.events}/>
             </div>
         );
     }
