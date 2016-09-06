@@ -51,10 +51,10 @@ class Shoutbox extends Component {
 
     render() {
         return (
-            <div id="messagesDiv">
+            <div className="messagesDiv">
                 <MessagesList messages={this.state.messages} />
                 <div className="controls">
-                    <input onKeyDown={this.pushToFirebase} type="text" id="baseinput"
+                    <input onKeyDown={this.pushToFirebase} type="text" className="baseinput"
                            placeholder="Type a message..."/>
                 </div>
             </div>

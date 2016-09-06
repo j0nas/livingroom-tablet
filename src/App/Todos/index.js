@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import firebase from "firebase";
 import TodosList from "./TodosList";
+import "../Shoutbox/style.css";
 import "./style.css";
 
 class Todos extends Component {
@@ -22,14 +23,12 @@ class Todos extends Component {
                 storageBucket: "livingroom-tablet.appspot.com",
             });
         } catch (e) {
-            //console.log(e);
         }
 
         const todoRef = firebase.database().ref('todos');
         todoRef.on('value', snapshot => {
             const todoKeys = Object.keys(snapshot.val());
             const todoStrings = todoKeys.map(key => snapshot.val()[key].todo);
-            console.log(todoStrings);
 
             this.setState({todos: todoStrings});
         });
@@ -48,13 +47,14 @@ class Todos extends Component {
 
     render() {
         return (
-            <div id="todosDiv">
+            <div className="messagesDiv">
                 <TodosList todos={this.state.todos}/>
                 <div className="controls">
                     <input onKeyDown={this.pushToFirebase}
                            type="text"
                            id="todoInput"
-                           placeholder="Create a To-Do ..."/>
+                           className="baseinput"
+                           placeholder="New To-Do ..."/>
                 </div>
             </div>
         );

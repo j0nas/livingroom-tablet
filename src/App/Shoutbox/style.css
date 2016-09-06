@@ -1,4 +1,4 @@
-#messagesDiv {
+.messagesDiv {
     border-left: 1px solid gray;
     width: 20%;
     right: 0;
@@ -9,7 +9,7 @@
     font-size: 2vw;
 }
 
-#baseinput {
+.baseinput {
     box-sizing: border-box;
     width: 100%;
     border: 0;

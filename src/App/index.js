@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Calendar from "./Calendar";
-import Shoutbox from "./Shoutbox";
 import XkcdStrip from "./XkcdStrip";
 import Todos from "./Todos";
 
@@ -19,7 +18,6 @@ class App extends Component {
             <div className="App">
                 <Todos/>
                 <Calendar/>
-                <Shoutbox/>
                 <XkcdStrip/>
             </div>
         );
