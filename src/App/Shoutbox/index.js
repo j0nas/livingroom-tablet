@@ -14,12 +14,16 @@ class Shoutbox extends Component {
     }
 
     componentDidMount() {
-        firebase.initializeApp({
-            apiKey: "AIzaSyBeXvLz0iuYBk2Nm3pgV2XzADh6w6ioUlE",
-            authDomain: "livingroom-tablet.firebaseapp.com",
-            databaseURL: "https://livingroom-tablet.firebaseio.com",
-            storageBucket: "livingroom-tablet.appspot.com",
-        });
+        try {
+            firebase.initializeApp({
+                apiKey: "AIzaSyBeXvLz0iuYBk2Nm3pgV2XzADh6w6ioUlE",
+                authDomain: "livingroom-tablet.firebaseapp.com",
+                databaseURL: "https://livingroom-tablet.firebaseio.com",
+                storageBucket: "livingroom-tablet.appspot.com",
+            });
+        } catch (e) {
+
+        }
 
         const msgRef = firebase.database().ref('message');
         msgRef.on('value', snapshot => {
