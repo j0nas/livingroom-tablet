@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import firebase from "firebase";
 import TodosList from "./TodosList";
 import "../Shoutbox/style.css";
-import "./style.css";
 
 class Todos extends Component {
     constructor() {
