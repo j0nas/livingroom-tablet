@@ -14,12 +14,16 @@
 
 /*  Width is relative to 100% body width, not 80%, shoutbox is pos:abs */
 .calendarDate, .calendarTime {
-    width: 20%;
+    text-align: left;
+}
+
+.calendarTime {
+    padding-left: 10px;
 }
 
 .calendarSummary {
-    width: 40%;
     text-align: left;
+    padding-left: 10px;
 }
 
 .calendarEventToday {
