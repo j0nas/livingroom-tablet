@@ -10,6 +10,7 @@
     display: table-cell;
     vertical-align: middle;
     text-transform: capitalize;
+    padding-left: 20px;
 }
 
 /*  Width is relative to 100% body width, not 80%, shoutbox is pos:abs */
