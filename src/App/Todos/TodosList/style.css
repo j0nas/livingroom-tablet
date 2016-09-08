@@ -1,6 +1,7 @@
 .todo {
     padding: 10px;
     word-wrap: break-word;
+    cursor: pointer;
 }
 
 #todos :nth-child(odd) {

@@ -44,10 +44,14 @@ class Todos extends Component {
         todoInput.value = "";
     }
 
+    handleTodoClick(item) {
+        console.log("KAKE", item.target);
+    }
+
     render() {
         return (
             <div className="messagesDiv">
-                <TodosList todos={this.state.todos}/>
+                <TodosList todos={this.state.todos} clickHandle={this.handleTodoClick} />
                 <div className="controls">
                     <input onKeyDown={this.pushToFirebase}
                            type="text"
